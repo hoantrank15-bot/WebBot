@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hoàn Code - Cửa Hàng Bot Trading</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #0b1020;
+      color: #ffffff;
+    }
+
+    header {
+      width: 100%;
+      background: #111936;
+      border-bottom: 1px solid #253052;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 20px;
+    }
+
+    .logo {
+      font-size: 26px;
+      font-weight: bold;
+      color: #f6c945;
+    }
+
+    .menu a {
+      color: #ffffff;
+      text-decoration: none;
+      margin-left: 25px;
+      font-size: 15px;
+    }
+
+    .menu a:hover {
+      color: #f6c945;
+    }
+
+    .hero {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 50px 20px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .hero-box h1 {
+      font-size: 48px;
+      line-height: 1.2;
+      margin-bottom: 20px;
+    }
+
+    .hero-box span {
+      color: #f6c945;
+    }
+
+    .hero-box p {
+      color: #c9d1e6;
+      font-size: 18px;
+      line-height: 1.7;
+      margin-bottom: 30px;
+    }
+
+    .hero-buttons button {
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-right: 12px;
+      font-weight: bold;
+    }
+
+    .btn-gold {
+      background: #f6c945;
+      color: #111936;
+    }
+
+    .btn-dark {
+      background: transparent;
+      color: #ffffff;
+      border: 1px solid #f6c945 !important;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #19244a, #0f1733);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.35);
+      border: 1px solid #283760;
+    }
+
+    .hero-card h2 {
+      color: #f6c945;
+      margin-bottom: 15px;
+    }
+
+    .hero-card ul {
+      list-style: none;
+    }
+
+    .hero-card li {
+      padding: 12px 0;
+      color: #dbe4ff;
+      border-bottom: 1px solid #263250;
+    }
+
+    .section {
+      max-width: 1200px;
+      margin: auto;
+      padding: 30px 20px;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .section-title h2 {
+      font-size: 34px;
+      color: #f6c945;
+      margin-bottom: 10px;
+    }
+
+    .section-title p {
+      color: #c9d1e6;
+    }
+
+    .filter-box {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .filter-box button {
+      padding: 10px 18px;
+      border-radius: 30px;
+      border: 1px solid #f6c945;
+      background: transparent;
+      color: #ffffff;
+      cursor: pointer;
+    }
+
+    .filter-box button.active,
+    .filter-box button:hover {
+      background: #f6c945;
+      color: #111936;
+    }
+
+    .bot-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .bot-card {
+      background: #111936;
+      border: 1px solid #283760;
+      border-radius: 18px;
+      overflow: hidden;
+      transition: 0.25s;
+    }
+
+    .bot-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.4);
+    }
+
+    .bot-img {
+      height: 190px;
+      background: linear-gradient(135deg, #f6c945, #7c5cff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111936;
+      font-size: 34px;
+      font-weight: bold;
+    }
+
+    .bot-content {
+      padding: 22px;
+    }
+
+    .bot-content h3 {
+      font-size: 22px;
+      margin-bottom: 10px;
+    }
+
+    .bot-content p {
+      color: #c9d1e6;
+      line-height: 1.6;
+      min-height: 76px;
+    }
+
+    .tag {
+      display: inline-block;
+      margin: 14px 0;
+      background: #253052;
+      color: #f6c945;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 13px;
+    }
+
+    .price {
+      font-size: 24px;
+      font-weight: bold;
+      color: #f6c945;
+      margin-bottom: 16px;
+    }
+
+    .bot-content button {
+      width: 100%;
+      padding: 13px;
+      border: none;
+      border-radius: 8px;
+      background: #f6c945;
+      color: #111936;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 15px;
+    }
+
+    .cart-box {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 25px 20px;
+    }
+
+    .cart {
+      background: #111936;
+      border: 1px solid #283760;
+      border-radius: 18px;
+      padding: 25px;
+    }
+
+    .cart h2 {
+      color: #f6c945;
+      margin-bottom: 15px;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      border-bottom: 1px solid #283760;
+      padding: 12px 0;
+      color: #dbe4ff;
+    }
+
+    .cart-item button {
+      background: #ff4d4d;
+      color: #fff;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .total {
+      margin-top: 18px;
+      font-size: 22px;
+      color: #f6c945;
+      font-weight: bold;
+    }
+
+    .checkout {
+      margin-top: 15px;
+      padding: 14px 22px;
+      background: #f6c945;
+      color: #111936;
+      border: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .contact {
+      background: #111936;
+      margin-top: 40px;
+      padding: 45px 20px;
+      text-align: center;
+      border-top: 1px solid #283760;
+    }
+
+    .contact h2 {
+      color: #f6c945;
+      font-size: 30px;
+      margin-bottom: 15px;
+    }
+
+    .contact p {
+      color: #c9d1e6;
+      margin-bottom: 20px;
+    }
+
+    .contact a {
+      display: inline-block;
+      background: #f6c945;
+      color: #111936;
+      text-decoration: none;
+      padding: 14px 25px;
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    footer {
+      text-align: center;
+      padding: 18px;
+      color: #9da8c7;
+      background: #0b1020;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .bot-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 600px) {
+      .menu {
+        display: none;
+      }
+
+      .hero-box h1 {
+        font-size: 34px;
+      }
+
+      .bot-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="nav">
+      <div class="logo">Hoàn Code</div>
+      <div class="menu">
+        <a href="#home">Trang chủ</a>
+        <a href="#bots">Sản phẩm</a>
+        <a href="#cart">Giỏ hàng</a>
+        <a href="#contact">Liên hệ</a>
+      </div>
+    </div>
+  </header>
+
+  <section class="hero" id="home">
+    <div class="hero-box">
+      <h1>Web bán <span>Bot Trading</span> chuyên nghiệp</h1>
+      <p>
+        Cung cấp bot giao dịch, EA tự động, công cụ quản lý vốn và giải pháp hỗ trợ trader.
+        Giao diện tối ưu cho máy tính, dễ chỉnh sửa và dễ nâng cấp.
+      </p>
+      <div class="hero-buttons">
+        <button class="btn-gold" onclick="scrollToBots()">Xem Bot</button>
+        <button class="btn-dark" onclick="scrollToContact()">Liên hệ tư vấn</button>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h2>Dịch vụ nổi bật</h2>
+      <ul>
+        <li>✔ Bot giao dịch XAUUSD</li>
+        <li>✔ EA Scalping M5/M15</li>
+        <li>✔ Bot Telegram tín hiệu</li>
+        <li>✔ Tool quản lý vốn tự động</li>
+        <li>✔ Hỗ trợ cài đặt sau khi mua</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="bots">
+    <div class="section-title">
+      <h2>Sản phẩm Bot</h2>
+      <p>Chọn bot phù hợp với nhu cầu giao dịch của bạn</p>
+    </div>
+
+    <div class="filter-box">
+      <button class="active" onclick="filterBots('all', this)">Tất cả</button>
+      <button onclick="filterBots('ea', this)">EA MT5</button>
+      <button onclick="filterBots('telegram', this)">Telegram Bot</button>
+      <button onclick="filterBots('tool', this)">Tool Trading</button>
+    </div>
+
+    <div class="bot-grid">
+      <div class="bot-card" data-category="ea" data-name="EA Gold Sniper" data-price="99">
+        <div class="bot-img">EA</div>
+        <div class="bot-content">
+          <h3>EA Gold Sniper</h3>
+          <p>Bot giao dịch vàng tự động theo xu hướng, phù hợp XAUUSD M5 và M15.</p>
+          <span class="tag">EA MT5</span>
+          <div class="price">$99</div>
+          <button onclick="addToCart(this)">Thêm vào giỏ</button>
+        </div>
+      </div>
+
+      <div class="bot-card" data-category="ea" data-name="EA Scalper Pro" data-price="149">
+        <div class="bot-img">PRO</div>
+        <div class="bot-content">
+          <h3>EA Scalper Pro</h3>
+          <p>EA vào lệnh ngắn hạn, tối ưu cho trader thích nhiều lệnh trong ngày.</p>
+          <span class="tag">EA MT5</span>
+          <div class="price">$149</div>
+          <button onclick="addToCart(this)">Thêm vào giỏ</button>
+        </div>
+      </div>
+
+      <div class="bot-card" data-category="telegram" data-name="Telegram Signal Bot" data-price="79">
+        <div class="bot-img">TG</div>
+        <div class="bot-content">
+          <h3>Telegram Signal Bot</h3>
+          <p>Bot gửi tín hiệu giao dịch lên Telegram, phù hợp nhóm cộng đồng và VIP.</p>
+          <span class="tag">Telegram Bot</span>
+          <div class="price">$79</div>
+          <button onclick="addToCart(this)">Thêm vào giỏ</button>
+        </div>
+      </div>
+
+      <div class="bot-card" data-category="tool" data-name="Risk Manager Tool" data-price="59">
+        <div class="bot-img">RM</div>
+        <div class="bot-content">
+          <h3>Risk Manager Tool</h3>
+          <p>Công cụ tính lot, quản lý vốn, đặt TP/SL nhanh theo tài khoản.</p>
+          <span class="tag">Tool Trading</span>
+          <div class="price">$59</div>
+          <button onclick="addToCart(this)">Thêm vào giỏ</button>
+        </div>
+      </div>
+
+      <div class="bot-card" data-category="telegram" data-name="News Alert Bot" data-price="89">
+        <div class="bot-img">NEWS</div>
+        <div class="bot-content">
+          <h3>News Alert Bot</h3>
+          <p>Bot cảnh báo tin tức mạnh, giúp trader tránh vùng biến động nguy hiểm.</p>
+          <span class="tag">Telegram Bot</span>
+          <div class="price">$89</div>
+          <button onclick="addToCart(this)">Thêm vào giỏ</button>
+        </div>
+      </div>
+
+      <div class="bot-card" data-category="tool" data-name="Trade Journal Tool" data-price="49">
+        <div class="bot-img">JNL</div>
+        <div class="bot-content">
+          <h3>Trade Journal Tool</h3>
+          <p>Công cụ ghi nhật ký giao dịch, thống kê kết quả và kiểm soát cảm xúc.</p>
+          <span class="tag">Tool Trading</span>
+          <div class="price">$49</div>
+          <button onclick="addToCart(this)">Thêm vào giỏ</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cart-box" id="cart">
+    <div class="cart">
+      <h2>Giỏ hàng</h2>
+      <div id="cartItems">Chưa có sản phẩm nào.</div>
+      <div class="total">Tổng tiền: $<span id="totalPrice">0</span></div>
+      <button class="checkout" onclick="checkout()">Thanh toán</button>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Liên hệ mua Bot</h2>
+    <p>Nhấn nút bên dưới để liên hệ tư vấn và nhận hướng dẫn cài đặt.</p>
+    <a href="https://t.me/yourusername" target="_blank">Liên hệ Telegram</a>
+  </section>
+
+  <footer>
+    © 2026 Hoàn Code. All rights reserved.
+  </footer>
+
+  <script>
+    let cart = [];
+
+    function addToCart(button) {
+      const card = button.closest('.bot-card');
+      const name = card.getAttribute('data-name');
+      const price = Number(card.getAttribute('data-price'));
+
+      cart.push({ name, price });
+      renderCart();
+    }
+
+    function removeItem(index) {
+      cart.splice(index, 1);
+      renderCart();
+    }
+
+    function renderCart() {
+      const cartItems = document.getElementById('cartItems');
+      const totalPrice = document.getElementById('totalPrice');
+
+      if (cart.length === 0) {
+        cartItems.innerHTML = 'Chưa có sản phẩm nào.';
+        totalPrice.textContent = 0;
+        return;
+      }
+
+      cartItems.innerHTML = '';
+      let total = 0;
+
+      cart.forEach((item, index) => {
+        total += item.price;
+        cartItems.innerHTML += `
+          <div class="cart-item">
+            <span>${item.name} - $${item.price}</span>
+            <button onclick="removeItem(${index})">Xóa</button>
+          </div>
+        `;
+      });
+
+      totalPrice.textContent = total;
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert('Giỏ hàng đang trống!');
+        return;
+      }
+
+      let message = 'Đơn hàng của bạn:\n';
+      cart.forEach(item => {
+        message += '- ' + item.name + ' - $' + item.price + '\n';
+      });
+
+      const total = cart.reduce((sum, item) => sum + item.price, 0);
+      message += '\nTổng tiền: $' + total;
+      message += '\n\nVui lòng liên hệ Telegram để thanh toán và nhận bot.';
+
+      alert(message);
+    }
+
+    function filterBots(category, button) {
+      const cards = document.querySelectorAll('.bot-card');
+      const buttons = document.querySelectorAll('.filter-box button');
+
+      buttons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+      cards.forEach(card => {
+        const cardCategory = card.getAttribute('data-category');
+        if (category === 'all' || category === cardCategory) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
+    }
+
+    function scrollToBots() {
+      document.getElementById('bots').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function scrollToContact() {
+      document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
+</body>
+</html>
